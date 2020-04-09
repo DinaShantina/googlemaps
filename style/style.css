@@ -92,6 +92,7 @@ body {
 .store-container:hover {
     background-color: rgba(252, 165, 125, 0.6);
     transition: 0.25s ease-in;
+    cursor: pointer;
 }
 
 .store-address {

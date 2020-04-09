@@ -3,18 +3,17 @@ window.onload = () => {
   getInfoonClick();
   setTimeout(function () {
     document.querySelector(".title").style.opacity = "1";
-
-    document.querySelector(".title").style.transition = ".3s ease-in";
+    document.querySelector(".title").style.transition = ".25s ease-in";
   }, 200);
   setTimeout(function () {
     document.querySelector(".search-container").style.opacity = "1";
     document.querySelector(".search-container").style.transition =
-      ".3s ease-in";
+      ".25s ease-in";
   }, 300);
   setTimeout(function () {
     document.querySelector(".stores-list-container").style.opacity = "1";
     document.querySelector(".stores-list-container").style.transition =
-      ".3s ease-in";
+      ".25s ease-in";
   }, 400);
 };
 var map;
@@ -111,9 +110,8 @@ function initMap() {
     ],
   });
   infoWindow = new google.maps.InfoWindow();
-  setTimeout(function () {
-    showStoresMarker();
-  }, 600);
+
+  showStoresMarker();
 }
 
 function displayStores() {
@@ -199,9 +197,10 @@ function createMarker(latlng, name, address, open, tel, origin, index) {
     map: map,
     position: latlng,
     label: index.toString(),
+    // animation: google.maps.Animation.DROP,
     icon: image,
   });
-  setTimeout(function () {}, 500);
+
   google.maps.event.addListener(marker, "click", function () {
     infoWindow.setContent(html);
     infoWindow.open(map, marker);

@@ -1,8 +1,25 @@
 window.onload = () => {
   displayStores();
+  getInfoonClick();
+  setTimeout(function () {
+    document.querySelector(".title").style.opacity = "1";
+
+    document.querySelector(".title").style.transition = ".3s ease-in";
+  }, 200);
+  setTimeout(function () {
+    document.querySelector(".search-container").style.opacity = "1";
+    document.querySelector(".search-container").style.transition =
+      ".3s ease-in";
+  }, 300);
+  setTimeout(function () {
+    document.querySelector(".stores-list-container").style.opacity = "1";
+    document.querySelector(".stores-list-container").style.transition =
+      ".3s ease-in";
+  }, 400);
 };
 var map;
 var markers = [];
+var infoWindowA = [];
 var infoWindow;
 var icon;
 var image = "images/marker1.png";
@@ -94,7 +111,9 @@ function initMap() {
     ],
   });
   infoWindow = new google.maps.InfoWindow();
-  showStoresMarker();
+  setTimeout(function () {
+    showStoresMarker();
+  }, 600);
 }
 
 function displayStores() {
@@ -105,7 +124,7 @@ function displayStores() {
     var address = store["addressLines"];
     var phoneNumber = store["phoneNumber"];
     storeHtml += `
-    <div class="store-container">
+    <div id=${count - 1} class="store-container">
     <div class="store-address">
       <div>
         <p>${address[0]}</p>
@@ -121,6 +140,33 @@ function displayStores() {
     document.querySelector(".stores-list").innerHTML = storeHtml;
   }
 }
+function getInfoonClick() {
+  for (var [i] of infoWindowA.entries()) {
+    document.getElementById(i).addEventListener("click", function () {
+      var key = this.id;
+      infoWindow.setContent(infoWindowA[key]);
+      infoWindow.open(map, markers[key]);
+    });
+    document.getElementById(i).addEventListener("mouseover", function () {
+      this.getElementsByClassName("number")[0].style.border = "1px solid white";
+      this.getElementsByClassName("number")[0].style.transition =
+        "0.3s ease-in";
+      this.getElementsByClassName("store-phone-number")[0].style.transition =
+        "0.3s ease-in";
+      this.getElementsByClassName("store-phone-number")[0].style.color =
+        "white";
+    });
+    document.getElementById(i).addEventListener("mouseleave", function () {
+      this.getElementsByClassName("number")[0].style.border =
+        "1px solid #45454";
+      this.getElementsByClassName("number")[0].style.transition =
+        "0.3s ease-in";
+      this.getElementsByClassName("store-phone-number")[0].style.transition =
+        "0.3s ease-in";
+      this.getElementsByClassName("store-phone-number")[0].style.color = "grey";
+    });
+  }
+}
 function showStoresMarker() {
   var bounds = new google.maps.LatLngBounds();
   for (var [index, store] of stores.entries()) {
@@ -134,7 +180,9 @@ function showStoresMarker() {
     var open = store["openStatusText"];
     var tel = store["phoneNumber"];
     var origin = "";
+
     bounds.extend(latlng);
+
     createMarker(latlng, name, address, open, tel, origin, index + 1);
   }
   map.fitBounds(bounds);
@@ -143,29 +191,21 @@ function createMarker(latlng, name, address, open, tel, origin, index) {
   var html = `
   <p class="title-map">${name}</p><p class="open-untill">${open}</p>
   
-  <p><i class='fas fa-location-arrow'></i><a href="https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${latlng}" target="_blank">${address}</a></p>
+  <p class="link-google"><i class='fas fa-location-arrow'></i><a href="https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${latlng}" target="_blank">${address}</a></p>
   <p><i class="fas fa-phone-alt"></i>${tel}</p>
   `;
-
+  infoWindowA[index - 1] = html;
   var marker = new google.maps.Marker({
     map: map,
     position: latlng,
     label: index.toString(),
     icon: image,
   });
+  setTimeout(function () {}, 500);
   google.maps.event.addListener(marker, "click", function () {
     infoWindow.setContent(html);
     infoWindow.open(map, marker);
   });
+
   markers.push(marker);
 }
-var storeIcon = document.querySelector(".store-container");
-storeIcon.addEventListener("mouseover", function () {
-  this.style.backgroundColor = "red";
-});
-function editIcon() {
-  console.log("clicked");
-}
-storeIcon.forEach(function (element) {
-  element.addEventListener("click", editIcon);
-});

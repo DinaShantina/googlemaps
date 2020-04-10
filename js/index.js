@@ -16,7 +16,6 @@ window.onload = () => {
 };
 var map;
 var markers = [];
-// var infoWindowA = [];
 var infoWindow;
 var icon;
 var image = "images/marker1.png";
@@ -170,34 +169,6 @@ function displayStores(stores) {
   }
 }
 
-function getInfoonClick() {
-  for (var [i] of infoWindowA.entries()) {
-    document.getElementById(i).addEventListener("click", function () {
-      var key = this.id;
-      infoWindow.setContent(infoWindowA[key]);
-      infoWindow.open(map, markers[key]);
-    });
-    document.getElementById(i).addEventListener("mouseover", function () {
-      this.getElementsByClassName("number")[0].style.border = "1px solid white";
-      this.getElementsByClassName("number")[0].style.transition =
-        "0.3s ease-in";
-      this.getElementsByClassName("store-phone-number")[0].style.transition =
-        "0.3s ease-in";
-      this.getElementsByClassName("store-phone-number")[0].style.color =
-        "white";
-    });
-    document.getElementById(i).addEventListener("mouseleave", function () {
-      this.getElementsByClassName("number")[0].style.border =
-        "1px solid #45454";
-      this.getElementsByClassName("number")[0].style.transition =
-        "0.3s ease-in";
-      this.getElementsByClassName("store-phone-number")[0].style.transition =
-        "0.3s ease-in";
-      this.getElementsByClassName("store-phone-number")[0].style.color = "grey";
-    });
-  }
-}
-
 function showStoresMarker(stores) {
   var bounds = new google.maps.LatLngBounds();
   for (var [index, store] of stores.entries()) {
@@ -222,11 +193,11 @@ function createMarker(latlng, name, address, open, tel, origin, index) {
   <p class="title-map">${name}</p><p class="open-untill">${open}</p>
   
   <p class="link-google"><i class='fas fa-location-arrow'></i><a href="https://www.google.com/maps/dir/?api=1&origin=${origin}&destination=${latlng}" target="_blank">${address}</a></p>
-  <p><i class="fas fa-phone-alt"></i>${tel}</p>
+  <p class="link-google"><i class="fas fa-phone-alt "></i><a href="tel: ${tel}"> ${tel}</a></p>
   </div>
  
   `;
-  // infoWindowA[index - 1] = html;
+
   var marker = new google.maps.Marker({
     map: map,
     position: latlng,

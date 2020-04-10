@@ -35,7 +35,7 @@ body {
     left: 100px;
     width: 400px;
     height: 60px;
-    background-color: #454545;
+    background-color: rgba(158, 144, 144, 0.8);
     border-radius: 30px;
     border: 1px solid white;
     display: flex;
@@ -46,6 +46,7 @@ body {
     display: flex;
     align-items: center;
     padding: 0 20px;
+    cursor: pointer;
 }
 
 #zip-code-input {
@@ -60,9 +61,13 @@ body {
     outline: none;
 }
 
-.fas {
+.searchIcon {
     color: white;
     font-size: 25px;
+}
+
+.searchIcon:hover {
+    color: rgb(237, 94, 29);
 }
 
 .stores-list-container {
@@ -85,25 +90,26 @@ body {
 
 .stores-list {
     flex-grow: 1;
-    /* padding: 1em; */
+    padding: 1em;
     overflow-y: scroll;
+}
+
+.store-container {
+    /* margin: 1em; */
+    border-bottom: 1px solid #979797;
+    /* border-radius: 10px; */
 }
 
 .store-container:hover {
     background-color: rgba(252, 165, 125, 0.6);
-    transition: 0.25s ease-in;
+    transition: all 0.25s ease-in;
     cursor: pointer;
-}
-
-.store-address {
-    padding: 1em;
+    /* margin: 1em; */
 }
 
 ::placeholder {
-    /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: white;
     opacity: 1;
-    /* Firefox */
 }
 
 ::-webkit-scrollbar {
@@ -128,6 +134,8 @@ body {
     justify-content: space-between;
     align-items: center;
     color: #454545;
+    padding: .3em;
+    /* margin: 10px; */
 }
 
 .number {
@@ -157,8 +165,8 @@ body {
     color: #979797;
     /* margin: 0 0 0 .70em; */
     padding: 0 0 1em 1em;
-    border-bottom: 1px solid #979797;
     font-size: 0.9rem;
+    /* border-bottom: 1px solid #979797; */
 }
 
 .no-border {
@@ -185,6 +193,11 @@ body {
     margin: 0 0 1em 0;
     padding: .5em 0;
     border-bottom: 1px solid rgb(201, 198, 198);
+}
+
+.marker-text {
+    min-width: 200px;
+    max-width: 300px;
 }
 
 .fa-location-arrow, .fa-phone-alt {
